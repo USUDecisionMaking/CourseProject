@@ -1,1 +1,3 @@
 data/Most-Recent-Cohorts-Institution.csv
+venv/
+__pycache__/
