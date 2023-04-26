@@ -15,3 +15,8 @@ def heuristic_function(college_name: str) -> tuple[float,float]:
     data["desired_value"] = data["initial_value"] * 4 
 
     return data[data["INSTNM"] == college_name][["initial_value", "desired_value"]].values[0]
+
+def get_adm_rate(college_name: str) -> float:
+    data = pd.read_csv(f"data/filtered-data.csv", low_memory=False)
+
+    return data.loc[data["INSTNM"] == college_name]["ADM_RATE"].values[0]
