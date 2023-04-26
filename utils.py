@@ -5,7 +5,7 @@ COLLEGES: list[str] = (data := pd.read_csv(f"data/filtered-data.csv")).groupby("
 def heuristic_function(college_name: str) -> tuple[float,float]:
     features = ["COSTT4_A", "SAT_AVG", "ACTWRMID", "ACTMTMID"]
 
-    data = pd.read_csv(f"data/filtered-data.csv")
+    data = pd.read_csv(f"data/filtered-data.csv", low_memory=False)
     data = data.groupby("INSTNM").agg("mean", numeric_only=True).reset_index()
 
     data = data[["INSTNM"] + features].copy()
