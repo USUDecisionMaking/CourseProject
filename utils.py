@@ -2,10 +2,10 @@ import pandas as pd
 
 COLLEGES: list[str] = (data := pd.read_csv(f"data/filtered-data.csv")).groupby("INSTNM").agg("mean", numeric_only=True).reset_index()[["INSTNM", "COSTT4_A","SAT_AVG"]].copy().dropna(axis="rows").sample(100, random_state=0)["INSTNM"].unique()
 
-def heuristic_function(college_name: str) -> tuple[float,float]:
+def heuristic_function(college_name: str, data) -> tuple[float,float]:
     features = ["COSTT4_A", "SAT_AVG", "ACTWRMID", "ACTMTMID"]
 
-    data = pd.read_csv(f"data/filtered-data.csv", low_memory=False)
+    # data = pd.read_csv(f"data/filtered-data.csv", low_memory=False)
     data = data.groupby("INSTNM").agg("mean", numeric_only=True).reset_index()
 
     data = data[["INSTNM"] + features].copy()
@@ -16,7 +16,5 @@ def heuristic_function(college_name: str) -> tuple[float,float]:
 
     return data[data["INSTNM"] == college_name][["initial_value", "desired_value"]].values[0]
 
-def get_adm_rate(college_name: str) -> float:
-    data = pd.read_csv(f"data/filtered-data.csv", low_memory=False)
-
+def get_adm_rate(college_name: str, data) -> float:
     return data.loc[data["INSTNM"] == college_name]["ADM_RATE"].values[0]
